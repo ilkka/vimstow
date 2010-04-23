@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
-
-abort "you need to write me"
+# Starter script for vimstow
+require File.join(File.dirname(__FILE__), '..', 'lib', 'vimstow')
+app = VimStow::App.new(ARGV, STDIN)
+app.run
