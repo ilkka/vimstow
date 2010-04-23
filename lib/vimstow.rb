@@ -63,8 +63,15 @@ module Vimstow
       end
     end
 
+    def process_arguments
+      true
+    end
+
     def arguments_valid?
       true
+    end
+
+    def process_command
     end
   end
 end
