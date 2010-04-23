@@ -33,16 +33,22 @@ module Vimstow
     end
 
     def run
-      if parsed_options? && arguments_valid?
-        puts "Start" if @options.verbose
-        output_options if @options.verbose
-        process_arguments
-        output_arguments if @options.verbose
-        process_command
-        puts "Finished" if @options.verbose
-      else
+      begin
+        if parsed_options? && arguments_valid?
+          puts "Start" if @options.verbose
+          process_arguments
+          output_options if @options.verbose
+          output_arguments if @options.verbose
+          process_command
+          puts "Finished" if @options.verbose
+        else
+          puts @opts
+          exit 1
+        end
+      rescue ArgumentError => err
+        puts err.message
         puts @opts
-        exit 1
+        exit 2
       end
     end
 
