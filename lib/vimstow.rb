@@ -19,7 +19,7 @@ module Vimstow
       @options = OpenStruct.new({ :verbose => false, :quiet => false })
       @opts = OptionParser.new do |opts|
         opts.banner = "Usage: vimstow [options] <addon>"
-        opts.seaprator ""
+        opts.separator ""
         opts.separator "Options:"
         opts.on('-v', '--version', 'Output version and exit') do
           output_version
