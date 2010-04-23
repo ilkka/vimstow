@@ -6,6 +6,7 @@
 #
 require 'optparse'
 require 'ostruct'
+require 'ap'
 
 module Vimstow
   class App
@@ -36,6 +37,7 @@ module Vimstow
         puts "Start" if @options.verbose
         output_options if @options.verbose
         process_arguments
+        output_arguments if @options.verbose
         process_command
         puts "Finished" if @options.verbose
       else
@@ -58,13 +60,18 @@ module Vimstow
 
     def output_options
       puts "Options:\n"
-      @options.marshal_dump.each do |name,val|
-        puts "\t#{name}\t= #{val}\n"
-      end
+      ap @options
     end
 
     def process_arguments
-      true
+      @arguments.each do |arg|
+        raise(ArgumentError, "#{arg} is not a directory") unless File.directory? arg
+      end
+    end
+
+    def output_arguments
+      puts "Arguments:\n"
+      ap @arguments
     end
 
     def arguments_valid?
