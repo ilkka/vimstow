@@ -1,0 +1,8 @@
+.autotest
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/vimstow
+lib/vimstow.rb
+test/test_vimstow.rb
