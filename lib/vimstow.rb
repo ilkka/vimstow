@@ -16,7 +16,7 @@ module Vimstow
     def initialize(arguments, stdin)
       @arguments = arguments
       @stdin = stdin
-      @options = OpenStruct.new { :verbose => false, :quiet => false }
+      @options = OpenStruct.new({ :verbose => false, :quiet => false })
       @opts = OptionParser.new do |opts|
         opts.banner = "Usage: vimstow [options] <addon>"
         opts.seaprator ""
@@ -66,6 +66,6 @@ module Vimstow
     def arguments_valid?
       true
     end
-
+  end
 end
 
