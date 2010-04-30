@@ -85,6 +85,18 @@ module Vimstow
     end
 
     def process_command
+      # for now, it's alwayws stow
+      Dir.glob(File.join @arguments.shift, '*/').each do |subdir|
+        Dir.glob(File.join subdir, '*').each do |file|
+          dirpart = File.split(File.dirname file)
+          dirpart.shift! # throw away the 'thingy' part
+          target = File.join '..', dirpart
+          unless File.directory? target
+            puts "Creating directory #{target}"
+            Dir.mkdir target
+          end
+        end
+      end
     end
   end
 end
