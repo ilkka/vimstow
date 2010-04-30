@@ -54,6 +54,10 @@ module Vimstow
 
     protected
 
+    def output_version
+      puts "Vimstow v#{VERSION}"
+    end
+
     def parsed_options?
       @opts.parse!(@arguments) rescue return false
       process_options
