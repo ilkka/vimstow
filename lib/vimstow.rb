@@ -90,15 +90,40 @@ module Vimstow
 
     def process_command
       # for now, it's alwayws stow
-      Dir.glob(File.join @arguments.shift, '*/').each do |subdir|
-        Dir.glob(File.join subdir, '*').each do |file|
-          dirpart = File.split(File.dirname file)
-          dirpart.shift! # throw away the 'thingy' part
-          target = File.join '..', dirpart
-          unless File.directory? target
-            puts "Creating directory #{target}"
-            Dir.mkdir target
-          end
+      @arguments.each {|arg| stow(arg)}
+    end
+
+    def stow(dir)
+      Dir.glob(File.join dir, '*/').each do |subdir|
+        stow_subdir(subdir, File.join('..', File.basename(subdir)))
+      end
+    end
+
+    def stow_subdir(dir, targetdir)
+      unless File.exists? targetdir
+        link_dir(dir, targetdir)
+      else
+        if File.directory? targetdir
+          link_contents(dir, targetdir)
+        else
+          raise(RuntimeError, "Conflict: #{dir} vs. #{targetdir}")
+        end
+      end
+    end
+
+    def link_dir(dir, target)
+      puts "Linking #{dir} to #{target}" if @options.verbose
+      File.symlink dir, target
+    end
+
+    def link_contents(dir, tgtdir)
+      Dir.glob(File.join dir, '*').each do |file|
+        target = File.join(tgtdir, File.basename(file))
+        if File.directory? target
+          stow_subdir(file, target)
+        else
+          puts "Linking #{file} to #{target}" if @options.verbose
+          File.symlink dir, target
         end
       end
     end
