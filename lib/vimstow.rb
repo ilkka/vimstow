@@ -105,7 +105,7 @@ module Vimstow
 
     def stow(dir)
       Dir.glob(File.join dir, '*/').each do |subdir|
-        stow_subdir(subdir, File.join('..', File.basename(subdir)))
+        stow_subdir(File.realpath(subdir), File.join('..', File.basename(subdir)))
       end
     end
 
