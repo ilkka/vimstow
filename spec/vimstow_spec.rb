@@ -11,25 +11,38 @@ describe "Vimstow" do
   end
 
   context "when stowing" do
+    
     it "should symlink top-level dirs when they don't exist" do
       within_construct do |c|
         c.directory 'stow' do
           c.file 'stow/addon/plugins/test.vim', 'test.vim content'
-          out = capture_stdout { Vimstow::App.new(['-q', 'stow', 'addon'], STDIN).run() }
+          out = capture_stdout { Vimstow::App.new(['stow', 'addon'], STDIN).run() }
           out.should be_empty
         end
         File.symlink?('plugins').should be_true
       end
     end
+
     it "should symlink top-level dir contents when top-level dirs exist" do
-      pending "write test"
+      within_construct do |c|
+        c.directory 'stow' do
+          c.file 'stow/addon/plugins/test.vim', 'test.vim content'
+          c.directory 'plugins'
+          out = capture_stdout { Vimstow::App.new(['stow', 'addon'], STDIN).run() }
+          out.should be_empty
+        end
+        File.symlink?('plugins/test.vim').should be_true
+      end
     end
+    
     it "should symlink nested dir contents if nested dirs exist" do
       pending "write test"
     end
+    
     it "should convert symlinks to dirs when a nested target dir is a symlink" do
       pending "write test"
     end
+
   end
 
   context "when unstowing" do
