@@ -67,8 +67,19 @@ describe "Vimstow" do
   end
 
   context "when unstowing" do
+
     it "should delete toplevel symlinked dirs if they belong to the addon" do
-      pending "write specs"
+      within_construct do |c|
+        c.directory 'stow' do
+          c.file 'stow/addon/foo/bar.vim', 'bar.vim content'
+          Vimstow::App.new(['stow', 'addon'], STDIN).run()
+          File.symlink?('../foo').should be_true
+          out = capture_stdout { Vimstow::App.new(['unstow', 'addon'], STDIN).run() }
+          out.should be_empty
+        end
+        File.exist?('foo').should be_false
+      end
     end
+
   end
 end
