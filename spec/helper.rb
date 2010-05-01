@@ -16,3 +16,7 @@ module Kernel
   end
 end
 
+Spec::Runner.configure do |cfg|
+  cfg.include Construct::Helpers
+end
+
