@@ -12,7 +12,14 @@ describe "Vimstow" do
 
   context "when stowing" do
     it "should symlink top-level dirs when they don't exist" do
-      pending "write test"
+      within_construct do |c|
+        c.directory 'stow' do
+          c.file 'stow/addon/plugins/test.vim', 'test.vim content'
+          out = capture_stdout { Vimstow::App.new(['-q', 'stow', 'addon'], STDIN).run() }
+          out.should be_empty
+        end
+        File.symlink?('plugins').should be_true
+      end
     end
     it "should symlink top-level dir contents when top-level dirs exist" do
       pending "write test"
