@@ -17,13 +17,13 @@ FEATURES/PROBLEMS
 SYNOPSIS
 --------
 
-  $ cd ~/.vim
-  $ mkdir stow
-  $ cd stow
-  $ tar xzf ~/some-vim-addon.tar.gz
-  $ ls some-vim-addon
-  doc plugin README.txt syntax
-  $ vimstow stow some-vim-addon
+    $ cd ~/.vim
+    $ mkdir stow
+    $ cd stow
+    $ tar xzf ~/some-vim-addon.tar.gz
+    $ ls some-vim-addon
+    doc plugin README.txt syntax
+    $ vimstow stow some-vim-addon
 
 Et voilá. Some-vim-addon should now be installed.
 
