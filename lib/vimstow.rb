@@ -31,6 +31,7 @@ module Vimstow
         end
         opts.on('-V', '--verbose', 'Be more verbose') { @options.verbose = true }
         opts.on('-q', '--quiet', 'Be quiet') { @options.quiet = true }
+        opts.on('-n', '--no-act', 'Simulate without doing any changes'), {  @options.simulate = true }
         opts.on_tail('-h', '--help', 'Output usage message') { puts @opts; exit }
       end
     end
@@ -122,7 +123,7 @@ module Vimstow
 
     def link_dir(dir, target)
       puts "Linking #{dir} to #{target}" if @options.verbose
-      File.symlink dir, target
+      File.symlink dir, target unless @options.simulate
     end
 
     def link_contents(dir, tgtdir)
@@ -132,7 +133,7 @@ module Vimstow
           stow_subdir(file, target)
         else
           puts "Linking #{file} to #{target}" if @options.verbose
-          File.symlink dir, target
+          File.symlink file, target unless @options.simulate
         end
       end
     end
