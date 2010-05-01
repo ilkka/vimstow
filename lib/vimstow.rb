@@ -94,6 +94,8 @@ module Vimstow
       case @command
       when "stow"
         @arguments.each {|arg| stow(arg)}
+      when "unstow"
+        @arguments.each {|arg| unstow(arg)}
       else
         raise(ArgumentError, "#{@command} is not a valid command")
       end
@@ -102,6 +104,20 @@ module Vimstow
     def stow(dir)
       Dir.glob(File.join dir, '*/').each do |subdir|
         stow_subdir(File.realpath(subdir), File.join('..', File.basename(subdir)))
+      end
+    end
+
+    def unstow(dir)
+      puts "Unstowing #{dir}" if @options.verbose
+      Dir.glob(File.join dir, '*/').each do |contained|
+        puts "Unstowing content #{contained}" if @options.verbose
+        path = File.join('..', File.basename(contained))
+        if File.symlink?(path) and File.realpath(path).split(File::SEPARATOR).include? dir
+          puts "Deleting #{path}" if @options.verbose
+          File.delete path unless @options.simulate
+        elsif File.directory?(path)
+          raise(RuntimeError, "Can't unstow nested dirs yet")
+        end
       end
     end
 
