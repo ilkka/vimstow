@@ -38,7 +38,7 @@ module Vimstow
 
     def run
       begin
-        if parsed_options? && arguments_valid?
+        if parsed_options?
           puts "Start" if @options.verbose
           process_arguments
           output_options if @options.verbose
@@ -88,10 +88,6 @@ module Vimstow
     def output_arguments
       puts "Arguments:\n"
       ap @arguments
-    end
-
-    def arguments_valid?
-      true
     end
 
     def process_command
