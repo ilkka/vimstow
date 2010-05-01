@@ -1,8 +1,8 @@
-require "test/unit"
-require "vimstow"
+require File.expand_path(File.dirname(__FILE__) + '/helper.rb')
 
 class TestVimstow < Test::Unit::TestCase
-  def test_sanity
-    flunk "write tests or I will kneecap you"
+  context 'When stowing' do
+    should 'work' do
+    end
   end
 end
