@@ -2,7 +2,16 @@ require File.expand_path(File.dirname(__FILE__) + '/helper.rb')
 
 describe "Vimstow" do
   it "should output its version with -v" do
-    pending "write test"
+    args = ['-v']
+    vs = Vimstow::App.new(args, STDIN)
+    out = capture_stdout do
+      begin
+        vs.run()
+      rescue Exception
+        puts $!
+      end
+    end
+    out.should match /^Vimstow v[0-9]+\.[0-9]+\.[0-9]+/
   end
 
   context "when stowing" do
