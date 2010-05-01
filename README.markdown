@@ -33,8 +33,7 @@ REQUIREMENTS
 * Ruby 1.9
 * awesome_print (gem install awesome_print)
 
-For testing
-+++++++++++
+For testing:
 
 * Construct (gem install devver-construct --source http://gems.github.com)
 
