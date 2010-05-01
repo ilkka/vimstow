@@ -1,6 +1,6 @@
 = vimstow
 
-* Stow for vim plugins (url TBD)
+* Stow for vim plugins (http://github.com/ilkka/vimstow)
 
 == DESCRIPTION:
 
