@@ -22,8 +22,8 @@ module Vimstow
         opts.banner = "Usage: vimstow [options] <command> <addon> [<addon> ...]"
         opts.separator ""
         opts.separator "Commands:"
-        opts.separator "\tstow\tLink addon"
-        opts.separator "\tunstow\tUnlink addon"
+        opts.separator format("    %-33s%s", "stow", "Link addon")
+        opts.separator format("    %-33s%s", "unstow", "Unlink addon")
         opts.separator "Options:"
         opts.on('-v', '--version', 'Output version and exit') do
           output_version
