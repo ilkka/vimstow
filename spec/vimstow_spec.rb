@@ -36,7 +36,15 @@ describe "Vimstow" do
     end
     
     it "should symlink nested dir contents if nested dirs exist" do
-      pending "write test"
+      within_construct do |c|
+        c.directory 'stow' do
+          c.file 'stow/addon/foo/bar/test.vim', 'test.vim content'
+          c.directory 'foo/bar'
+          out = capture_stdout { Vimstow::App.new(['stow', 'addon'], STDIN).run() }
+          out.should be_empty
+        end
+        File.symlink?('foo/bar/test.vim').should be_true
+      end
     end
     
     it "should convert symlinks to dirs when a nested target dir is a symlink" do
