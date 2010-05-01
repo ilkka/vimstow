@@ -5,11 +5,7 @@ describe "Vimstow" do
     args = ['-v']
     vs = Vimstow::App.new(args, STDIN)
     out = capture_stdout do
-      begin
-        vs.run()
-      rescue Exception
-        puts $!
-      end
+      lambda { vs.run() }.should raise_exception(SystemExit) {|e| e.status.should == 0}
     end
     out.should match /^Vimstow v[0-9]+\.[0-9]+\.[0-9]+/
   end
