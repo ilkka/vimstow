@@ -31,7 +31,7 @@ module Vimstow
         end
         opts.on('-V', '--verbose', 'Be more verbose') { @options.verbose = true }
         opts.on('-q', '--quiet', 'Be quiet') { @options.quiet = true }
-        opts.on('-n', '--no-act', 'Simulate without doing any changes'), {  @options.simulate = true }
+        opts.on('-n', '--no-act', 'Simulate without doing any changes') {  @options.simulate = true }
         opts.on_tail('-h', '--help', 'Output usage message') { puts @opts; exit }
       end
     end
