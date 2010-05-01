@@ -16,16 +16,21 @@ additional plugins into your .vim dir.
   $ cd ~/.vim
   $ mkdir stow
   $ cd stow
-  $ tar xzf ~/some-vim-addon.tar.gz
+  $ tar xzf ~/some-vim-addon.tar.gz
   $ ls some-vim-addon
   doc plugin README.txt syntax
-  $ vimstow some-vim-addon
+  $ vimstow stow some-vim-addon
 
-Et voilà. Some-vim-addon should now be installed.
+Et voilá. Some-vim-addon should now be installed.
 
 == REQUIREMENTS:
 
-* Ruby 1.8 (?).
+* Ruby 1.9
+* awesome_print (gem install ap)
+
+=== For testing:
+
+* Construct (gem install devver-construct --source http://gems.github.com)
 
 == INSTALL:
 
