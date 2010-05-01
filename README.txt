@@ -1,17 +1,21 @@
-= vimstow
+Vimstow
+=======
 
 * Stow for vim plugins (http://github.com/ilkka/vimstow)
 
-== DESCRIPTION:
+DESCRIPTION
+-----------
 
 This is a specialized sort-of-version of GNU stow that is meant for installing
 additional plugins into your .vim dir.
 
-== FEATURES/PROBLEMS:
+FEATURES/PROBLEMS
+-----------------
 
 * Only stows for now. Does not unstow.
 
-== SYNOPSIS:
+SYNOPSIS
+--------
 
   $ cd ~/.vim
   $ mkdir stow
@@ -23,20 +27,24 @@ additional plugins into your .vim dir.
 
 Et voilá. Some-vim-addon should now be installed.
 
-== REQUIREMENTS:
+REQUIREMENTS
+------------
 
 * Ruby 1.9
 * awesome_print (gem install awesome_print)
 
-=== For testing:
+For testing
++++++++++++
 
 * Construct (gem install devver-construct --source http://gems.github.com)
 
-== INSTALL:
+INSTALL
+-------
 
 * Run "rake install_gem"
 
-== DEVELOPERS:
+DEVELOPERS
+----------
 
 After checking out the source, run:
 
@@ -45,7 +53,8 @@ After checking out the source, run:
 This task will install any missing dependencies, run the tests/specs,
 and generate the RDoc.
 
-== LICENSE:
+LICENSE
+-------
 
 (The MIT License)
 
