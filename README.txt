@@ -26,7 +26,7 @@ Et voilá. Some-vim-addon should now be installed.
 == REQUIREMENTS:
 
 * Ruby 1.9
-* awesome_print (gem install ap)
+* awesome_print (gem install awesome_print)
 
 === For testing:
 
