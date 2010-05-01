@@ -47,12 +47,12 @@ module Vimstow
           puts "Finished" if @options.verbose
         else
           puts @opts
-          exit 1
+          raise(RuntimeError, "Invalid options")
         end
       rescue ArgumentError => err
         puts err.message
         puts @opts
-        exit 2
+        raise
       end
     end
 
