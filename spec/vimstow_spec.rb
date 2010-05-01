@@ -25,5 +25,9 @@ describe "Vimstow" do
     end
   end
 
-  context "when unstowing"
+  context "when unstowing" do
+    it "should delete toplevel symlinked dirs if they belong to the addon" do
+      pending "write specs"
+    end
+  end
 end
