@@ -113,7 +113,7 @@ module Vimstow
       unless File.exists? targetdir
         link_dir(dir, targetdir)
       else
-        if File.directory? targetdir
+        if File.directory?(targetdir) and not File.symlink?(targetdir)
           link_contents(dir, targetdir)
         else
           raise(RuntimeError, "Conflict: #{dir} vs. #{targetdir}")
