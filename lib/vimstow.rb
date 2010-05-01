@@ -112,11 +112,27 @@ module Vimstow
       Dir.glob(File.join dir, '*/').each do |contained|
         puts "Unstowing content #{contained}" if @options.verbose
         path = File.join('..', File.basename(contained))
-        if File.symlink?(path) and File.realpath(path).split(File::SEPARATOR).include? dir
+        if File.symlink?(path) and File.realpath(path).include? dir
           puts "Deleting #{path}" if @options.verbose
           File.delete path unless @options.simulate
         elsif File.directory?(path)
-          raise(RuntimeError, "Can't unstow nested dirs yet")
+          unstow_contents(contained, path)
+        else
+          raise(RuntimeError, "Don't know how to unstow #{contained}")
+        end
+      end
+    end
+
+    def unstow_contents(dir, target)
+      Dir.glob(File.join(dir, '*')).each do |contained|
+        tgtpath = File.join(target, contained)
+        if File.symlink?(tgtpath) and File.realpath(tgtpath).include? dir
+          puts "Deleting #{tgtpath}" if @options.verbose
+          File.delete tgtpath unless @options.simulate
+        elsif File.directory?(tgtpath)
+          unstow_contents(contained, tgtpath)
+        else
+          raise(RuntimeError, "Don't know how to unstow #{contained}")
         end
       end
     end
