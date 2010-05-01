@@ -36,6 +36,8 @@ REQUIREMENTS
 For testing:
 
 * Construct (gem install devver-construct --source http://gems.github.com)
+* Rspec
+* diff-lcs
 
 INSTALL
 -------
