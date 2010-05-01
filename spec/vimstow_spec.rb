@@ -81,5 +81,21 @@ describe "Vimstow" do
       end
     end
 
+    it "should delete content links when toplevel dir is a directory" do
+      within_construct do |c|
+        c.directory 'stow' do
+          c.file 'foo/bar.vim'
+          c.file 'stow/addon/foo/baz.vim', 'baz.vim content'
+          Vimstow::App.new(['stow', 'addon'], STDIN).run()
+          File.symlink?('../foo/baz.vim').should be_true
+          out = capture_stdout { Vimstow::App.new(['unstow', 'addon'], STDIN).run() }
+          out.should be_empty
+        end
+        File.directory?('foo').should be_true
+        File.exist?('foo/bar.vim').should be_true
+        File.exist?('foo/baz.vim').should be_false
+      end
+    end
+
   end
 end
