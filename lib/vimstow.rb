@@ -115,9 +115,25 @@ module Vimstow
       else
         if File.directory?(targetdir) and not File.symlink?(targetdir)
           link_contents(dir, targetdir)
+        elsif File.symlink?(targetdir)
+          dirify_and_relink_contents(targetdir)
+          link_contents(dir, targetdir)
         else
           raise(RuntimeError, "Conflict: #{dir} vs. #{targetdir}")
         end
+      end
+    end
+
+    def dirify_and_relink_contents(dir)
+      contents = Dir.glob(File.join(dir, '*')).map {|d| File.basename d}
+      puts "Deleting symlink #{dir}" if @options.verbose
+      File.delete dir unless @options.simulate
+      puts "Creating directory #{dir}" if @options.verbose
+      Dir.mkdir dir unless @options.simulate
+      contents.each do |c|
+        tgt = File.join dir, c
+        puts "Relinking #{c} to #{tgt}" if @options.verbose
+        stow_subdir c, tgt unless @options.simulate
       end
     end
 
