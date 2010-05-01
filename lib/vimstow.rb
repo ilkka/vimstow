@@ -19,8 +19,11 @@ module Vimstow
       @stdin = stdin
       @options = OpenStruct.new({ :verbose => false, :quiet => false })
       @opts = OptionParser.new do |opts|
-        opts.banner = "Usage: vimstow [options] <addon>"
+        opts.banner = "Usage: vimstow [options] <command> <addon> [<addon> ...]"
         opts.separator ""
+        opts.separator "Commands:"
+        opts.separator "\tstow\tLink addon"
+        opts.separator "\tunstow\tUnlink addon"
         opts.separator "Options:"
         opts.on('-v', '--version', 'Output version and exit') do
           output_version
@@ -74,6 +77,8 @@ module Vimstow
     end
 
     def process_arguments
+      raise(ArgumentError, "Too few arguments") unless @arguments.size >= 2
+      @command = @arguments.shift
       @arguments.each do |arg|
         raise(ArgumentError, "#{arg} is not a directory") unless File.directory? arg
       end
@@ -89,8 +94,12 @@ module Vimstow
     end
 
     def process_command
-      # for now, it's alwayws stow
-      @arguments.each {|arg| stow(arg)}
+      case @command
+      when "stow"
+        @arguments.each {|arg| stow(arg)}
+      else
+        raise(ArgumentError, "#{@command} is not a valid command")
+      end
     end
 
     def stow(dir)
